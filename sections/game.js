@@ -24,7 +24,8 @@ window.Sections.game={mount:async function(host,ctx){
  var root=el('div','gm','<div class="gsky"></div><div class="gcount"></div><div class="gworld"></div><div class="gui"></div><div class="gtap">Tap to jump</div>');
  document.body.appendChild(root);
  var W=root.clientWidth,H=root.clientHeight,step=Math.min(150,H*.2),world=root.querySelector('.gworld'),ui=root.querySelector('.gui'),count=root.querySelector('.gcount'),hint=root.querySelector('.gtap');
- function P(k){return{x:k===N?W/2+75:W*(k===0?.4:k%2?.7:.3),y:-k*step}}
+ var DROP=24; /* moon landing: pixels lower than the base line, so feet sink into the moon surface */
+ function P(k){return{x:k===N?W/2+75:W*(k===0?.4:k%2?.7:.3),y:-k*step+(k===N?DROP:0)}}
  for(var k=0;k<N;k++){var p=P(k),c=el('img','gcl');c.src='fx/cloud'+(k%4+1)+'.webp';c.alt='';c.style.left=(p.x-85)+'px';c.style.top=(p.y-26)+'px';world.appendChild(c)}
  var moonBig=el('img','gmoonbig'),Wm=1500,LAND=Math.round(H*.72),MTOP=LAND-16-Math.round(.0818*Wm);moonBig.src='fx/moon.webp';moonBig.alt='';
  /* real 1500x1500 moon; its visible top edge sits 16px above the landing line, so the feet land just inside the surface, near the top */
